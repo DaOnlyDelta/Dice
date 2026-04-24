@@ -10,10 +10,13 @@
     <form id="menu" method="POST" action="./php/input.php">
         <h1 id="title">The Dice</h1>
         <div id="players">
-            <h2>Players</h2>
-            <button id="addPlayer">+</button>
-            <svg id="leftArrow" class="inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
-            <svg id="rightArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
+            <h2 id="playerTitle">Player 1</h2>
+            <div id="buttons">
+                <button id="addPlayer">+</button>
+                <button id="removePlayer">-</button>
+            </div>
+            <svg id="leftArrow" class="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
+            <svg id="rightArrow" class="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
         </div>
         <div id="bottom">
             <div id="selectWrapper">
