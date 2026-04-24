@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta description="Dice">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Dice</title>
+</head>
+<body>
+    <form id="menu" method="POST" action="./php/input.php">
+        <h1 id="title">The Dice</h1>
+        <div id="players">
+            <h2>Players</h2>
+            <button id="addPlayer">+</button>
+            <svg id="leftArrow" class="inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
+            <svg id="rightArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
+        </div>
+        <div id="bottom">
+            <div id="selectWrapper">
+                <h2>Number of Dice</h2>
+                <select id="select1" name="nDice">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <input type="submit" value="Start">
+        </div>
+    </form>
+    <div id="game"></div>
+</body>
+<script src="js/script.js"></script>
+</html>
