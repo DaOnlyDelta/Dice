@@ -9,15 +9,28 @@ playersDiv.addEventListener('mouseleave', () => {
 });
 
 // Add players
-const addPlayers = document.getElementById('addPlayers');
+const addPlayerBtn = document.getElementById('addPlayer');
 const leftArrow = document.getElementById('leftArrow');
 const rightArrow = document.getElementById('rightArrow');
+const img = [];
+let imgI = 0;
+for (let i = 1; i <= 5; i++) {
+    img.push(`./img/${i}.png`);
+}
 
-addPlayers.addEventListener('click', () => {
-    const player = document.createElement('div');
-    
-    playersDiv.appendChild(player);
+addPlayerBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent form from submitting when clicking +
+    addPlayer();
 });
+
+function addPlayer() {
+    const player = document.createElement('div');
+    const pfp = document.createElement('img');
+    pfp.src = img[imgI % 5];
+    imgI++;
+    player.appendChild(pfp);
+    playersDiv.appendChild(player);
+}
 
 leftArrow.addEventListener('click', () => {
 
