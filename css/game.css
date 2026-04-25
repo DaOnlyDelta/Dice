@@ -7,7 +7,10 @@
 #game .player-box {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    --card-scale: 0.8;
+    --hover-scale: 1;
+    transform: scale(var(--card-scale)) scale(var(--hover-scale));
+    transform-origin: center;
     display: flex;
     flex-direction: row;
     gap: 2vh;
@@ -18,6 +21,10 @@
     box-shadow: 0.8vh 1vh rgba(0, 0, 0, 0.1);
     z-index: 30;
     transition: transform 0.4s ease, left 0.4s ease, right 0.4s ease;
+}
+
+#game .player-box:hover {
+    --hover-scale: 1.02;
 }
 
 #game .player-box h2 {
@@ -38,6 +45,22 @@
     margin-top: 8vh;
     background-color: var(--light-blue);
     border-radius: 2vh;
+    box-shadow: 0.8vh 1vh rgba(0, 0, 0, 0.2);
+    --hover-scale: 1;
+    transition: transform 0.2s ease;
+}
+
+#game .player-box .dice-box:hover {
+    transform: scale(var(--hover-scale));
+}
+
+#game .player-box .dice-box canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 2vh;
+    pointer-events: none;
 }
 
 #game .player-box .rollAll {
@@ -73,6 +96,19 @@
 #game .player-box .dice-box > button:not(:disabled):hover,
 #game .player-box .rollAll:not(:disabled):hover {
     transform: translateX(-50%) scale(1.08);
+}
+
+#game .player-box .dice-box > button.rolled {
+    background-color: #ddd;
+    box-shadow: none;
+}
+
+#game .player-box .dice-box > button.rolled:disabled {
+    opacity: 1;
+}
+
+#game .player-box .dice-box > button.rolled:hover {
+    transform: translateX(-50%);
 }
 
 #game .player-box .dice-box > button:disabled,

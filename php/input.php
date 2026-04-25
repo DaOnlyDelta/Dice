@@ -32,11 +32,21 @@ $totalWidth = ($diceWidth * $_SESSION['nDice']) + ($_SESSION['nDice'] - 1) * $ga
         <li></li>
         <li></li>
         <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
     </ul>
     <div id="game">
         <?php
             foreach($_SESSION['players'] as $index => $player) {
-                $safeName = htmlspecialchars($player);
+                $nameRaw = is_string($player) ? trim($player) : '';
+                $displayName = ($nameRaw === '') ? ('Player ' . ($index + 1)) : $nameRaw;
+                $safeName = htmlspecialchars($displayName, ENT_QUOTES, 'UTF-8');
 
                 echo "<div id='player" . ($index + 1) . "' class='player-box' style='width: " . $totalWidth . "vh;'>";
                 echo "<h2 id='title" . ($index + 1) . "'>" . $safeName . "</h2>";
