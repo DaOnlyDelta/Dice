@@ -8,12 +8,36 @@ playersDiv.addEventListener('mouseleave', () => {
     playersDiv.classList.remove('mouseIn');
 });
 
-// Add players
+// Manage players
 const playerTitle = document.getElementById('playerTitle');
 const addPlayerBtn = document.getElementById('addPlayer');
 const removePlayerBtn = document.getElementById('removePlayer');
 const leftArrow = document.getElementById('leftArrow');
 const rightArrow = document.getElementById('rightArrow');
+
+// Manage Dice
+const addDiceBtn = document.getElementById('addDice');
+const subDiceBtn = document.getElementById('subDice');
+const nDiceInput = document.getElementById('nDiceInput');
+
+addDiceBtn.addEventListener('click', () => {
+    subDiceBtn.classList.remove('disabled');
+    let currentVal = parseInt(nDiceInput.value);
+    nDiceInput.value = currentVal + 1;
+    if (currentVal + 1 === 3) {
+        addDiceBtn.classList.add('disabled');
+    }
+});
+
+subDiceBtn.addEventListener('click', () => {
+    addDiceBtn.classList.remove('disabled');
+    let currentVal = parseInt(nDiceInput.value);
+    nDiceInput.value = currentVal - 1;
+    if (currentVal - 1 === 1) {
+        subDiceBtn.classList.add('disabled');
+    }
+});
+
 let players = [];
 let totalPlayers = 0;
 let playersI = 0;
@@ -41,13 +65,14 @@ removePlayerBtn.addEventListener('click', (e) => {
         setButtons(false);
         leftArrow.classList.add('disabled');
     };
+    players[playersI].querySelector('input').focus({ preventScroll: true });
 });
 
 function addPlayer() {
     const player = document.createElement('div');
     const pfp = document.createElement('img');
     const inputField = document.createElement('input');
-    inputField.type = 'text';
+    inputField.name = 'players[]';
     pfp.src = img[imgI % 5];
     imgI++;
     player.appendChild(pfp);
@@ -133,4 +158,6 @@ function setButtons(active) {
     }
 }
 
+// Add initial player and focus the input field
 addPlayer();
+players[0].querySelector('input').focus();

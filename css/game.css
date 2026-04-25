@@ -1,0 +1,95 @@
+#game {
+    position: relative;
+    z-index: 10;
+    height: 50vh;
+}
+
+#game .player-box {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 2vh;
+    height: 50vh;
+    padding: 4vh 2vh;
+    background-color: #cae6f4;
+    border-radius: 2vh;
+    box-shadow: 0.8vh 1vh rgba(0, 0, 0, 0.1);
+    z-index: 30;
+    transition: transform 0.4s ease, left 0.4s ease, right 0.4s ease;
+}
+
+#game .player-box h2 {
+    position: absolute;
+    top: 4vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3.5vh;
+    color: var(--pink);
+    text-shadow: 0.2vh 0.2vh white;
+    z-index: 20;
+}
+
+#game .player-box .dice-box {
+    position: relative;
+    width: 30vh;
+    height: 35vh;
+    margin-top: 8vh;
+    background-color: var(--light-blue);
+    border-radius: 2vh;
+}
+
+#game .player-box .rollAll {
+    position: absolute;
+    bottom: 3vh;
+    left: 50%;
+    background-color: var(--light-blue);
+    text-shadow: 0.2vh 0.2vh white;
+}
+
+#game .player-box .dice-box > button {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    background-color: white;
+}
+
+/* --- Game roll buttons (menu-style) --- */
+#game .player-box .dice-box > button,
+#game .player-box .rollAll {
+    color: var(--pink);
+    border: none;
+    border-radius: 2vh;
+    box-shadow: 0.6vh 0.75vh rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    font-weight: bold;
+
+    /* keep your centering transform (prevents "jump" on hover) */
+    transform: translateX(-50%);
+    transition: transform 0.2s ease;
+}
+
+#game .player-box .dice-box > button:not(:disabled):hover,
+#game .player-box .rollAll:not(:disabled):hover {
+    transform: translateX(-50%) scale(1.08);
+}
+
+#game .player-box .dice-box > button:disabled,
+#game .player-box .rollAll:disabled {
+    cursor: default;
+}
+
+/* Per-die Roll button (smaller) */
+#game .player-box .dice-box > button {
+    height: 4.5vh;
+    width: 12vh;
+    font-size: 2.2vh;
+}
+
+/* Roll All (slightly bigger) */
+#game .player-box .rollAll {
+    height: 5.2vh;
+    width: 16vh;
+    font-size: 2.5vh;
+}

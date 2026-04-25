@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta description="Dice">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/menu.css">
     <title>Dice</title>
 </head>
 <body>
+    <ul class="bg-cubes">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
     <form id="menu" method="POST" action="./php/input.php">
-        <h1 id="title">The Dice</h1>
         <div id="players">
             <h2 id="playerTitle">Player 1</h2>
             <div id="buttons">
@@ -19,19 +31,17 @@
             <svg id="rightArrow" class="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
         </div>
         <div id="bottom">
-            <div id="selectWrapper">
+            <div id="nDiceWrapper">
                 <h2>Number of Dice</h2>
-                <select id="select1" name="nDice">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
+                <div id="dice-counter">
+                    <button type="button" class="disabled" id="subDice">-</button>
+                    <input type="number" name="nDice" id="nDiceInput" value="1" min="1" max="3" autocomplete="off" readonly>
+                    <button type="button" id="addDice">+</button>
+                </div>
             </div>
             <input type="submit" value="Start">
         </div>
     </form>
-    <div id="game"></div>
 </body>
-<script src="js/script.js"></script>
+<script src="js/menu.js"></script>
 </html>
