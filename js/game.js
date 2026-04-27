@@ -1,11 +1,28 @@
+/**
+ * Game page behavior (rolling dice)
+ *
+ * Responsibilities:
+ * - Draw dice faces on <canvas>
+ * - Handle per-die roll and per-player "Roll All / Reset"
+ * - Track which player card is selected; only selected player can roll
+ * - Write rolled values into hidden inputs (submitted to php/result.php)
+ *
+ * Notes:
+ * - Unrolled dice keep the hidden input empty (""), and are displayed as face 0 (blank).
+ * - Rolled dice values are 1–6 and are stored in the hidden input.
+ */
 (() => {
     const game = document.getElementById('game');
     let selected = 0;
 
+    // ===== Visual tuning =====
     const SELECTED_SCALE = 1;
     const UNSELECTED_SCALE = 0.9;
 
+    // ===== Dice face definitions =====
+    // 0 is a "blank" face used for the default/unrolled state.
     const FACE_PIPS = {
+        0: [],
         1: [[1, 1]],
         2: [[0, 0], [2, 2]],
         3: [[0, 0], [1, 1], [2, 2]],
@@ -14,16 +31,26 @@
         6: [[0, 0], [0, 1], [0, 2], [2, 0], [2, 1], [2, 2]],
     };
 
-    function isDiceRolled(diceBox) {
-        return diceBox?.dataset?.rolled === '1';
+    /** Returns the hidden result input inside a dice box. */
+    function getResultInput(diceBox) {
+        return diceBox?.querySelector?.('input.die-result') || null;
     }
 
+    /** True if a die has been rolled already (either via dataset or input value). */
+    function isDiceRolled(diceBox) {
+        if (diceBox?.dataset?.rolled === '1') return true;
+        const input = getResultInput(diceBox);
+        return Boolean(input && String(input.value).trim() !== '');
+    }
+
+    /** Marks a die as rolled/unrolled and toggles the visual state for its button. */
     function setDiceRolled(diceBox, rolled) {
         diceBox.dataset.rolled = rolled ? '1' : '0';
         const btn = diceBox.querySelector('button');
         btn.classList.toggle('rolled', Boolean(rolled));
     }
 
+    /** Updates the "Roll All" button to become "Reset" when all dice are rolled. */
     function updateRollAllButton(playerBox) {
         const rollAllBtn = playerBox.querySelector(':scope > .rollAll');
 
@@ -41,23 +68,30 @@
 
     function redrawPlayerDice(playerBox) {
         playerBox.querySelectorAll('.dice-box canvas').forEach((canvas) => {
-            const face = Number(canvas.dataset.face || '1');
-            drawDieFace(canvas, Number.isFinite(face) ? face : 1);
+            const face = Number(canvas.dataset.face || '0');
+            drawDieFace(canvas, Number.isFinite(face) ? face : 0);
         });
     }
 
+    /**
+     * Resets all dice for one player:
+     * - clears hidden inputs
+     * - sets blank face (0)
+     * - re-enables rolling based on current selection
+     */
     function resetPlayer(playerBox) {
         playerBox.querySelectorAll('.dice-box').forEach((diceBox) => {
             const canvas = diceBox.querySelector('canvas');
             const btn = diceBox.querySelector('button');
+            const input = getResultInput(diceBox);
 
             diceBox.dataset.rolling = '0';
-            diceBox.dataset.result = '';
+            if (input) input.value = '';
             setDiceRolled(diceBox, false);
 
             if (canvas) {
-                canvas.dataset.face = '1';
-                drawDieFace(canvas, 1);
+                canvas.dataset.face = '0';
+                drawDieFace(canvas, 0);
             }
 
             // Re-enable only if this player is currently selected; layoutPlayers() will enforce this.
@@ -138,7 +172,7 @@
         ctx.restore();
 
         // Pips.
-        const pips = FACE_PIPS[face] || FACE_PIPS[1];
+        const pips = FACE_PIPS[face] ?? FACE_PIPS[0];
         const cell = size / 3;
         const pipRadius = Math.max(1, Math.round(0.18 * cell));
 
@@ -156,11 +190,12 @@
         canvas.dataset.face = String(face);
     }
 
+    /** Draws all dice faces once on page load (or after layout changes). */
     function initDice() {
         if (!game) return;
         game.querySelectorAll('.dice-box canvas').forEach((canvas) => {
-            const face = Number(canvas.dataset.face || '1');
-            drawDieFace(canvas, Number.isFinite(face) ? face : 1);
+            const face = Number(canvas.dataset.face || '0');
+            drawDieFace(canvas, Number.isFinite(face) ? face : 0);
         });
 
         game.querySelectorAll('.player-box').forEach((playerBox) => updateRollAllButton(playerBox));
@@ -170,6 +205,7 @@
         const { durationMs = 850, tickMs = 75 } = opts;
         const canvas = diceBox.querySelector('canvas');
         const btn = diceBox.querySelector('button');
+        const input = getResultInput(diceBox);
         if (!canvas || !btn) return;
         if (diceBox.dataset.rolling === '1') return;
         if (isDiceRolled(diceBox)) return;
@@ -185,7 +221,7 @@
             if (performance.now() - start >= durationMs) {
                 clearInterval(timer);
                 diceBox.dataset.rolling = '0';
-                diceBox.dataset.result = String(lastFace);
+                if (input) input.value = String(lastFace);
 
                 setDiceRolled(diceBox, true);
                 btn.disabled = true;

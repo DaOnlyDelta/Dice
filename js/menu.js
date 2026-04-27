@@ -1,5 +1,16 @@
+/**
+ * Menu page behavior
+ *
+ * Responsibilities:
+ * - Player list UI: add/remove players, slide left/right between players
+ * - Dice count UI: increment/decrement within allowed range
+ * - Small hover animation for the players container
+ *
+ * Assumptions:
+ * - This script is only loaded on the menu page where all referenced DOM elements exist.
+ */
 (() => {
-    // PlayersDiv scale animation
+    // ===== Hover animation: players container =====
     const playersDiv = document.getElementById('players');
     playersDiv.addEventListener('mouseenter', () => {
         playersDiv.classList.add('mouseIn');
@@ -9,14 +20,14 @@
         playersDiv.classList.remove('mouseIn');
     });
 
-    // Manage players
+    // ===== DOM: player controls =====
     const playerTitle = document.getElementById('playerTitle');
     const addPlayerBtn = document.getElementById('addPlayer');
     const removePlayerBtn = document.getElementById('removePlayer');
     const leftArrow = document.getElementById('leftArrow');
     const rightArrow = document.getElementById('rightArrow');
 
-    // Manage Dice
+    // ===== DOM: dice controls =====
     const addDiceBtn = document.getElementById('addDice');
     const subDiceBtn = document.getElementById('subDice');
     const nDiceInput = document.getElementById('nDiceInput');
@@ -39,6 +50,11 @@
         }
     });
 
+    // ===== State =====
+    // players[]: array of player <div> nodes appended to #players
+    // totalPlayers: number of players currently created
+    // playersI: index of the currently "focused" player card
+    // img[] / imgI: rotating profile picture selection
     let players = [];
     let totalPlayers = 0;
     let playersI = 0;
@@ -69,11 +85,16 @@
         players[playersI].querySelector('input').focus({ preventScroll: true });
     });
 
+    /**
+     * Creates one new player card (pfp + input) and appends it to #players.
+     * Newly created cards slide in from the right.
+     */
     function addPlayer() {
         const player = document.createElement('div');
         const pfp = document.createElement('img');
         const inputField = document.createElement('input');
         inputField.name = 'players[]';
+        inputField.maxLength = '10';
         pfp.src = img[imgI % 5];
         imgI++;
         player.appendChild(pfp);
@@ -115,6 +136,10 @@
         focusPlayer(true);
     });
 
+    /**
+     * Moves the focus left/right by 1 player and updates the UI classes.
+     * @param {boolean|null} direction true = right, false = left
+     */
     function focusPlayer(direction = null) { // true = right, false = left
         playerTitle.innerHTML = `Player ${playersI + 1}`;
         if (direction) { // true
@@ -127,7 +152,10 @@
         players[playersI].querySelector('input').focus({ preventScroll: true });
     }
 
-    // Cycle trough each player till you reach the new one
+    /**
+     * When adding a player, cycles through players until the new one is reached,
+     * then enables the add/remove buttons again.
+     */
     function focusAdded() {
         rightArrow.classList.add('disabled');
         leftArrow.classList.remove('disabled');
@@ -149,6 +177,9 @@
         }, 250);
     }
 
+    /**
+     * Toggles the "active" styling for the add/remove player buttons.
+     */
     function setButtons(active) {
         if (active) {
             removePlayerBtn.classList.add('active');
@@ -159,7 +190,8 @@
         }
     }
 
-    // Add initial player and focus the input field
+    // ===== Init =====
+    // Add initial player and focus the input field.
     addPlayer();
     players[0].querySelector('input').focus();
 })();

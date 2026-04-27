@@ -18,7 +18,7 @@
     padding: 4vh 2vh;
     background-color: #cae6f4;
     border-radius: 2vh;
-    box-shadow: 0.8vh 1vh rgba(0, 0, 0, 0.1);
+    box-shadow: 0.8vh 1vh rgba(0, 0, 0, 0.2);
     z-index: 30;
     transition: transform 0.4s ease, left 0.4s ease, right 0.4s ease;
 }
@@ -84,7 +84,7 @@
     color: var(--pink);
     border: none;
     border-radius: 2vh;
-    box-shadow: 0.6vh 0.75vh rgba(0, 0, 0, 0.15);
+    box-shadow: 0.6vh 0.75vh rgba(0, 0, 0, 0.2);
     cursor: pointer;
     font-weight: bold;
 
@@ -114,6 +114,7 @@
 #game .player-box .dice-box > button:disabled,
 #game .player-box .rollAll:disabled {
     cursor: default;
+    pointer-events: none;
 }
 
 /* Per-die Roll button (smaller) */
@@ -128,4 +129,26 @@
     height: 5.2vh;
     width: 16vh;
     font-size: 2.5vh;
+}
+
+#game input[type=submit] {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -20vh;
+    height: 7vh;
+    width: 14vh;
+    border: none;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    font-weight: bold;
+    color: var(--pink);
+    text-shadow: 0.2vh 0.2vh white;
+    background-color: var(--light-blue);
+    box-shadow: 0.6vh 0.75vh rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+#game input[type=submit]:hover {
+    transform: translateX(-50%) scale(1.1);
 }
