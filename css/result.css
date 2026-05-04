@@ -14,7 +14,7 @@ h1 {
     transform: translateX(-50%);
     height: 60vh;
     width: 40vw;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     gap: 1vh;
@@ -26,10 +26,13 @@ h1 {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    --list-pad: 1vh;
     --row-gap: 2vh;
+    padding: var(--list-pad);
     gap: var(--row-gap);
     scrollbar-width: none;
     scroll-snap-type: y mandatory;
+    scroll-padding-block: var(--list-pad);
 }
 
 #resultsList::-webkit-scrollbar {
@@ -79,6 +82,7 @@ h1 {
     scroll-snap-stop: always;
     transition: grid-template-columns 0.2s ease, font-size 0.2s ease;
     font-size: 3vh;
+    box-shadow: 0.6vh 0.75vh rgba(0, 0, 0, 0.2);
 }
 
 #result .result-row:hover {
@@ -117,7 +121,7 @@ h1 {
     transform: translateX(-50%);
     bottom: 12vh;
     height: 7vh;
-    width: 14vh;
+    width: 24vh;
     border: none;
     border-radius: 2vh;
     font-size: 2.5vh;
@@ -126,9 +130,33 @@ h1 {
     text-shadow: 0.2vh 0.2vh white;
     background-color: var(--light-blue);
     box-shadow: 0.6vh 0.75vh rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, width 0.2s ease;
+    cursor: pointer;
 }
 
 #home:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+#stop {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 7.5vh;
+    height: 3.2vh;
+    width: 17vh;
+    border: none;
+    border-radius: 2vh;
+    font-size: 1.5vh;
+    font-weight: bold;
+    color: var(--pink);
+    text-shadow: 0.15vh 0.15vh white;
+    background-color: var(--light-blue);
+    box-shadow: 0.4vh 0.5vh rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, width 0.2s ease;
+    cursor: pointer;
+}
+
+#stop:hover {
     transform: translateX(-50%) scale(1.1);
 }

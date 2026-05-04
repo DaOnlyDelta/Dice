@@ -32,8 +32,8 @@
         <div id="players">
             <h2 id="playerTitle">Player 1</h2>
             <div id="buttons">
-                <button id="addPlayer">+</button>
-                <button id="removePlayer">-</button>
+                <button id="addPlayer" title="Add player">+</button>
+                <button id="removePlayer" title="Remove player">-</button>
             </div>
             <svg id="leftArrow" class="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
             <svg id="rightArrow" class="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
@@ -42,9 +42,9 @@
             <div id="nDiceWrapper">
                 <h2>Number of Dice</h2>
                 <div id="dice-counter">
-                    <button type="button" class="disabled" id="subDice">-</button>
+                    <button type="button" class="disabled" id="subDice" title="Remove dice">-</button>
                     <input type="number" name="nDice" id="nDiceInput" value="1" min="1" max="3" autocomplete="off" readonly>
-                    <button type="button" id="addDice">+</button>
+                    <button type="button" id="addDice" title="Add dice">+</button>
                 </div>
             </div>
             <input type="submit" value="Start">

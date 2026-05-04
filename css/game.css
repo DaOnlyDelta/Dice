@@ -147,6 +147,7 @@
     background-color: var(--light-blue);
     box-shadow: 0.6vh 0.75vh rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease;
+    cursor: pointer;
 }
 
 #game input[type=submit]:hover {

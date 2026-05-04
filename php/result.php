@@ -123,7 +123,8 @@ $_SESSION['orderedPlayers'] = $orderedPlayers;
             <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
         </svg>
     </div>
-    <button type="button" id="home">Home</button>
+    <button type="button" id="home">Returning.. 10</button>
+    <button type="button" id="stop">stop countdown</button>
 </body>
 <script src="../js/result.js"></script>
 </html>
