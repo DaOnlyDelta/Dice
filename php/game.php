@@ -32,6 +32,7 @@ $totalWidth = ($diceWidth * $nDice) + ($nDice - 1) * $gap;
     <meta name="description" content="Dice">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/game.css">
+    <link rel="icon" type="image/x-icon" href="../img/icon.png">
     <title>Dice</title>
 </head>
 <body>
